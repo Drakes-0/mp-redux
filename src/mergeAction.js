@@ -1,4 +1,4 @@
-import { warn, isObject } from './utils'
+import { warn, isObject } from './utils/index'
 
 export default function mergeAction(dispatch, mapDispatchToProps, config, option) {
 

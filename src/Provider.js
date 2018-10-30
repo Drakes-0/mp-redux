@@ -1,4 +1,4 @@
-import { warn, hasOwn } from './utils'
+import { warn, hasOwn } from './utils/index'
 
 export const Provider = appConfig => store => {
     if (hasOwn(appConfig, 'store')) {

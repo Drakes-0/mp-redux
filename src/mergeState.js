@@ -1,4 +1,4 @@
-import { warn, hasOwn } from './utils'
+import { warn, hasOwn } from './utils/index'
 import shallowEqual from './shallowEqual'
 
 export default function mergeState(state, mapStateToProps, data, isFirstCall) {

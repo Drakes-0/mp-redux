@@ -44,6 +44,6 @@ export function connect(mapStateToProps, mapDispatchToProps, option = {}) {
     }
 }
 
-export function connnectComponent(mapStateToProps, mapDispatchToProps) {
+export function connectComponent(mapStateToProps, mapDispatchToProps) {
     return connect(mapStateToProps, mapDispatchToProps, { isComponent: true })
 }

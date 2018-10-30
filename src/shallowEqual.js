@@ -1,4 +1,4 @@
-import { isObject } from './utils'
+import { isObject } from './utils/index'
 
 export default function shallowEqual(prev, next) {
     if (prev === next) {
