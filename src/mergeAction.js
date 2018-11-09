@@ -1,6 +1,11 @@
-import { warn, isObject } from './utils/index'
+import { warn, isObject, hasOwn } from './utils/index'
 
-export default function mergeAction(dispatch, mapDispatchToProps, config, option) {
+export default function mergeAction(dispatch, mapDispatchToProps, config, option, watch) {
+    const target = option.isComponent ? (config.methods || (config.methods = {})) : config
+
+    for (let watch_key in watch) {
+        target[`__watch_${watch_key}`] = watch[watch_key]
+    }
 
     let methods
 
@@ -14,8 +19,6 @@ export default function mergeAction(dispatch, mapDispatchToProps, config, option
     } else {
         return
     }
-
-    const target = option.isComponent ? config.methods : config
 
     Object.keys(methods).forEach(key => {
         if (hasOwn(target, key)) {

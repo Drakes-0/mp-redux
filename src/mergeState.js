@@ -1,7 +1,7 @@
 import { warn, hasOwn } from './utils/index'
 import shallowEqual from './shallowEqual'
 
-export default function mergeState(state, mapStateToProps, data, isFirstCall) {
+export default function mergeState(state, mapStateToProps, data, isFirstCall, context) {
     let keys
 
     if (typeof mapStateToProps === 'function') {
@@ -24,8 +24,12 @@ export default function mergeState(state, mapStateToProps, data, isFirstCall) {
         let difference
         keys.forEach(key => {
             if (!shallowEqual(data[key], state[key])) {
-                !difference && (difference = Object.create(null))
-                difference[key] = state[key]
+                if (!context[`__watch_${key}`]) {
+                    !difference && (difference = Object.create(null))
+                    difference[key] = state[key]
+                } else {
+                    context[`__watch_${key}`].call(context, state[key], data[key])
+                }
             }
         })
 

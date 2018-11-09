@@ -12,7 +12,7 @@ export function connect(mapStateToProps, mapDispatchToProps, option = {}) {
                 return
             }
 
-            const mergedData = mergeState(store.getState(), mapStateToProps, this.data)
+            const mergedData = mergeState(store.getState(), mapStateToProps, this.data, null, this)
             mergedData && this.setData(mergedData)
         }
 
@@ -21,15 +21,16 @@ export function connect(mapStateToProps, mapDispatchToProps, option = {}) {
             ONUNLOAD: option.isComponent ? 'detached' : 'onUnload'
         }
 
-        const { data = {}, [LIFECYCLE.ONLOAD]: originalOnLoad, [LIFECYCLE.ONUNLOAD]: originalOnUnload } = config
+        const { data = {}, [LIFECYCLE.ONLOAD]: originalOnLoad, [LIFECYCLE.ONUNLOAD]: originalOnUnload, watch } = config
 
         shouldHandleStateChanges && mergeState(store.getState(), mapStateToProps, data, true)
-        shouldMapDispatcher && mergeAction(store.dispatch, mapDispatchToProps, config, option)
+            ; (shouldMapDispatcher || watch) && mergeAction(store.dispatch, mapDispatchToProps, config, option, watch)
 
         const lifecycleHook = {
             [LIFECYCLE.ONLOAD](query) {
                 if (shouldHandleStateChanges) {
                     this.unsubscribe = store.subscribe(handleStateChange.bind(this))
+                    handleStateChange.call(this)
                 }
 
                 typeof originalOnLoad === 'function' && originalOnLoad.call(this, query)

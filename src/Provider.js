@@ -1,6 +1,6 @@
 import { warn, hasOwn } from './utils/index'
 
-export const Provider = appConfig => store => {
+export const Provider = store => appConfig => {
     if (hasOwn(appConfig, 'store')) {
         warn(`Global app object:store already exists will be covered`)
     }
