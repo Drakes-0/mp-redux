@@ -1,4 +1,4 @@
-mp-redux
+# wechat-mp-redux
 ========
 Miniprogram bindings for Redux （在小程序中使用Redux）
 
@@ -10,7 +10,11 @@ Miniprogram bindings for Redux （在小程序中使用Redux）
 
 1.自行引用`redux`，如果你需要处理异步，可以自行引用`thunk`，`saga`或者`what ever`，这一步与你以往使用`redux`的web项目没有任何区别
 
-2.将`dist`目录下的`mp-redux.js`文件拷贝出来，`mp-redux`提供了三个API
+2.从`npm`安装，或克隆此项目后将`dist`目录下已构建好的`mp-redux.js`文件拷贝出来，注意之后从微信开发者工具构建到项目，`mp-redux`提供了如下三个API
+
+```javascript
+npm install -S wechat-mp-redux
+```
 
 ### `Provider`
 
